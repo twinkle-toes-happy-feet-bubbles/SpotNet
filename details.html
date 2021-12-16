@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Product Upload | Netizen</title>
+
+  <link rel="stylesheet" href="users.css">
+
+  <!--<link rel="stylesheet" href="./style.css">-->
+
+</head>
+
+<body>
+
+  <div class="container">
+
+<!--  
+
+    <!-- Add Modal -->
+
+    <div class="wrapper">
+
+      <div class="form-container">
+
+        <div class="title-text"><h3>User Details</h3></div>
+
+        <div>
+
+          <form class="form-container" autocomplete="off">
+
+            
+
+            <!--<img style="width: 100px; height: 100px; "src="" alt="Product Image" id="image">-->
+
+            <div class="field">
+
+            <input type="text" name="Name" placeholder="Full Name">
+
+            </div>
+
+            <br>
+
+            <div class="field">
+
+            <!--<input type="text" name="Address" placeholder="Address" style="height: 90px; cols="30" rows="10"">-->
+
+            <textarea name="Address" placeholder="Address" cols="30" rows="10"></textarea>
+
+            </div>
+
+            <br>
+
+            <div class="field">
+
+            <input type="text" name="CellNo" placeholder="Prefered Mobile Number">
+
+            </div>
+
+            <br>
+
+            <div class="field btn">
+
+                    <div class="btn-layer"></div>
+
+                     <button id="getOtp" class="btn btn-modal" style="background: #77E3AB;">Next</button>
+
+                  </div>
+
+           
+
+            
+
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+
+  <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-app.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+
+      https://firebase.google.com/docs/web/setup#available-libraries -->
+
+  <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-firestore.js"></script>
+
+   <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-storage.js"></script>
+
+  <script>
+
+    // Your web app's Firebase configuration
+
+    var firebaseConfig = {
+
+    apiKey: "AIzaSyDPbCB9o3c44_KqEcTL8PrPXvOioNI9Skw",
+
+    authDomain: "netizen-70f7b.firebaseapp.com",
+
+    databaseURL: "https://netizen-70f7b-default-rtdb.asia-southeast1.firebasedatabase.app",
+
+    projectId: "netizen-70f7b",
+
+    storageBucket: "netizen-70f7b.appspot.com",
+
+    messagingSenderId: "900442479711",
+
+    appId: "1:900442479711:web:8fe818cd16e8feeaff8fea",
+
+     measurementId: "G-G8XQQBBY8F"
+
+    };
+
+    // Initialize Firebase
+
+    firebase.initializeApp(firebaseConfig);
+
+    const db = firebase.firestore();
+
+  </script>
+
+  <style>
+
+    .field input{
+
+    height: 100%;
+
+    width: 100%;
+
+    outline: none;
+
+    padding-left: 15px;
+
+    border-radius: 5px;
+
+    border: 1px solid lightgrey;
+
+    border-bottom-width: 2px;
+
+    font-size: 17px;
+
+    transition: all 0.3s ease;
+
+    }
+
+  </style>
+
+  <!--<script src="script.js"></script>-->
+
+</body>
+
+</html>
