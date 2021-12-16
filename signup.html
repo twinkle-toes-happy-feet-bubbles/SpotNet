@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+
+<!-- Created By CodingNepal -->
+
+<html lang="en" dir="ltr">
+
+   <head>
+
+      <meta charset="utf-8">
+
+      <title>Login and joinUs | Welcome</title>
+
+        <link rel="stylesheet" href="users.css">
+
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+   </head>
+
+   <body>
+
+      <div class="wrapper">
+
+        
+
+         <div class="title-text">
+
+            <div class="title login">
+
+               Login 
+
+            </div>
+
+            <div class="title Join">
+
+               Join Us
+
+            </div>
+
+         </div>
+
+         <div class="form-container">
+
+            <div class="slide-controls">
+
+               <input type="radio" name="slide" id="login" checked>
+
+               <input type="radio" name="slide" id="joinUs">
+
+               <label for="login" class="slide login">Login</label>
+
+               <label for="joinUs" class="slide joinUs">Join Us</label>
+
+               <div class="slider-tab"></div>
+
+            </div>
+
+            <div class="form-inner">
+
+               <form action="#" class="login">
+
+                 <!--
+
+                  <div class="field">
+
+                     <input type="text" placeholder="Full Name" required>
+
+                  </div>
+
+                  -->
+
+                  <div class="field">
+
+                     <input type="number" id="mobileNo" placeholder="Mobile Number" required>
+
+                  </div>
+
+                  
+
+                  <div class="field btn">
+
+                    <!--<div class="btn-layer"></div>-->
+
+                    <button id="getOtp" onclick="auth()">Get OTP</button>
+
+                    <!--<input type="submit" value="Get OTP" placeholder="Get OTP">-->
+
+                  </div>
+
+                      <!-- Message log -->
+
+    <div id="log"></div>
+
+    <hr>
+
+                   <div id="recaptcha"></div>
+
+                  <!--
+
+                  <div class="field">
+
+                   <input type="number" id="authotp" placeholder="OTP" required onchange="otpfound()">
+
+                  </div>
+
+                  -->
+
+                  
+
+                  <br>
+
+                  <div class="field btn">
+
+                     <div class="btn-layer"></div>
+
+                     <button id="getOtp" onclick="IsItuser()">Next</button>
+
+                  </div>
+
+                  <div class="joinUs-link">
+
+                     Like to list your work? <a href="">Join Us</a>
+
+                  </div>
+
+               </form>
+
+               <form action="#" class="joinUs">
+
+                  <div class="field">
+
+                     <input type="text" placeholder="Full Name" required>
+
+                  </div>
+
+                  <div class="field">
+
+                     <input type="password" placeholder="Mobile Number" required>
+
+                  </div>
+
+                  <div class="field btn">
+
+                    <div class="btn-layer"></div>
+
+                    <input type="submit" value="Get OTP">
+
+                  </div>
+
+                  <div class="field">
+
+                     <input type="password" placeholder="OTP" required>
+
+                  </div>
+
+                  <br>
+
+                  <hr>
+
+                  <div class="field btn">
+
+                    <div class="btn-layer"></div>
+
+                    <input type="submit" value="Get Location">
+
+                  </div>
+
+                  <br>
+
+                  <div class="field btn">
+
+                     <div class="btn-layer"></div>
+
+                     <input type="submit" value="Join">
+
+                  </div>
+
+               </form>
+
+            </div>
+
+         </div>
+
+      </div>
+
+      <script>
+
+         const loginText = document.querySelector(".title-text .login");
+
+         const loginForm = document.querySelector("form.login");
+
+         const loginBtn = document.querySelector("label.login");
+
+         const joinUsBtn = document.querySelector("label.joinUs");
+
+         const joinUsLink = document.querySelector("form .joinUs-link a");
+
+         joinUsBtn.onclick = (()=>{
+
+           loginForm.style.marginLeft = "-50%";
+
+           loginText.style.marginLeft = "-50%";
+
+         });
+
+         loginBtn.onclick = (()=>{
+
+           loginForm.style.marginLeft = "0%";
+
+           loginText.style.marginLeft = "0%";
+
+         });
+
+         joinUsLink.onclick = (()=>{
+
+           joinUsBtn.click();
+
+           return false;
+
+         });
+
+      </script>
+
+    </script>
+
+      <!-- The core Firebase JS SDK is always required and must be listed first -->
+
+  <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-app.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+
+      https://firebase.google.com/docs/web/setup#available-libraries -->
+
+  <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-firestore.js"></script>
+
+   <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-storage.js"></script>
+
+        <script src="https://www.gstatic.com/firebasejs/4.5.1/firebase.js"></script>
+
+        <script>
+
+            
+
+            var config = {
+
+               apiKey: "AIzaSyDPbCB9o3c44_KqEcTL8PrPXvOioNI9Skw",
+
+               authDomain: "netizen-70f7b.firebaseapp.com",
+
+               projectId: "netizen-70f7b",
+
+               storageBucket: "netizen-70f7b.appspot.com",
+
+               messagingSenderId: "900442479711",
+
+               appId: "1:900442479711:web:8fe818cd16e8feeaff8fea",
+
+               measurementId: "G-G8XQQBBY8F"
+
+            };
+
+            firebase.initializeApp(config);
+
+            const db = firebase.firestore();
+
+        </script>
+
+      
+
+      
+
+<script src="auth.js"></script>
+
+   </body>
+
+</html>
