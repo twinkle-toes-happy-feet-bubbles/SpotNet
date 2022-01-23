@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Store Details | SpotNet</title>
+    
+  <link rel="stylesheet" href="users.css">
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <h2>
+    Please turn Location ON
+  </h2>
+  <div id="logbox">
+    <div id="log"></div>
+</div>
+<div class="body">
+  <h2 id="greet">
+    Hello!
+  </h2>
+  <div class="container">
+<!--  
+    <!-- Add Modal -->
+          <button onclick="LocateUser()">Get Location</button>
+          <br>
+          <button onclick="Storedb()">Submit</button>
+        </div>
+      </div>
+  <hr><hr><br><hr><hr>
+  <input id="userAddress" placeholder="userAddress"></input>
+  <select id="ItsMyZone" required>
+    <option value="" selected disabled hidden>Store Type</option>
+    <option value="Groceries">Groceries / Kirana</option>
+    <option value="Fresh">Fruits and Vegetables</option>
+    <option value="Pharmacy">Pharmacy</option>
+  </select>
+  <button onclick="GetZone()">Zone Selected</button>
+  
+  <br>
+  <input id="userName" placeholder="userName"></input>
+  <br>
+  <input type="number" id="userNumber" placeholder="userNumber"></input>
+  <!-- &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&-->
+  <!--e Firebase JS SDK is always required and must be listed first -->
+
+  <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-app.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+
+      https://firebase.google.com/docs/web/setup#available-libraries -->
+
+  <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-firestore.js"></script>
+   <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-storage.js"></script>
+
+  <script>
+
+    // Your web app's Firebase configuration
+
+    var firebaseConfig = {
+
+    apiKey: "AIzaSyDPbCB9o3c44_KqEcTL8PrPXvOioNI9Skw",
+
+    authDomain: "netizen-70f7b.firebaseapp.com",
+
+    databaseURL: "https://netizen-70f7b-default-rtdb.asia-southeast1.firebasedatabase.app",
+
+    projectId: "netizen-70f7b",
+
+    storageBucket: "netizen-70f7b.appspot.com",
+
+    messagingSenderId: "900442479711",
+
+    appId: "1:900442479711:web:8fe818cd16e8feeaff8fea",
+
+     measurementId: "G-G8XQQBBY8F"
+
+    };
+
+    // Initialize Firebase
+
+    firebase.initializeApp(firebaseConfig);
+
+    const db = firebase.firestore();
+
+  </script>
+
+  <!-- &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& -->
+  
+  
+  
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+      https://firebase.google.com/docs/web/setup#available-libraries -->
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+      https://firebase.google.com/docs/web/setup#available-libraries -->
+  <style>
+    .field input{
+    height: 100%;
+    width: 100%;
+    outline: none;
+    padding-left: 15px;
+    border-radius: 5px;
+    border: 1px solid lightgrey;
+    border-bottom-width: 2px;
+    font-size: 17px;
+    transition: all 0.3s ease;
+    }
+  </style>
+
+  <script src="storeDetails.js"></script>
+  <script>
+    let myzhone;
+    var ozone = document.getElementById('ItsMyZone');
+    
+    //var zoneName = ozone.value;
+    //localStorage.setItem("myZone", ozone.value);
+    function GetZone(){
+      window.myzhone = document.getElementById('ItsMyZone').value;
+    }
+  </script>
+ 
+  <script>
+    if(localStorage.StoreDet = true) {
+      window.location.replace('Prodadd.html');
+      console.log('to dashboard');
+    }
+    else if (localStorage.StoreDet != true) {
+        window.location.replace('storespot.html');
+    } else {
+      console.log('No user');
+        window.location.replace('signup.html');
+    }
+  
+  window.myzhone = document.getElementById('ItsMyZone').value;
+  
+  
+  console.log('Geohash '+ localStorage.geohash);
+   let localSpot = localStorage.geohash;
+   let userSpot = localSpot.substring(7, localSpot.Length-4);
+   console.log('localSpot ' + userSpot);
+   //localSpot = localStorage.geohash.substring(0, localSpot.length - 5);
+   localStorage.setItem("UserSpot", userSpot);
+   console.log(userSpot);
+
+    var usrStore = document.getElementById("userAddress");
+    var usrName = document.getElementById("userName");
+    localStorage.setItem(" StoreOwner", usrName.value);
+    var usrNumber = document.getElementById("userNumber");
+    localStorage.setItem("StoreNumber", usrNumber.value);
+    function Storedb() {
+      db.collection('stores').doc(userSpot).collection(window.myzhone).add({
+        StoreName: usrStore.value,  
+        Shopkeeper: usrName.value,
+        UserHash: localStorage.geohash,
+        MobileNo: usrNumber.value,
+      }).then(function(docRef) {
+      console.log("Document written with ID: ", docRef.id);
+      localStorage.setItem("StoreId", docRef.id);
+      })
+      .catch(function(error) {
+    console.error("Error adding document: ", error);
+});
+   console.log(usrName.value);
+   console.log(usrNumber.value);
+   localStorage.setItem("StoreDet", true); 
+   window.location.replace('Prodadd.html');
+  };
+  </script>
+
+</body>
+
+</html>
