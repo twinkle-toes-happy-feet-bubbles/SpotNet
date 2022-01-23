@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Products Browse</title>
+    <link rel="stylesheet" href="buy.css">
+    <link rel="stylesheet" href="buycard.css">
+    <link rel="stylesheet" href="sidebar.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+   </head>
+
+   <body>
+     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+     <div id="mySidebar" class="sidebar" onmouseover="toggleSidebar()" onmouseout="toggleSidebar()">
+       <a href="profile.html"><span><i class="material-icons">person</i><span class="icon-text">profile</span></a><br>
+       <a href="stores.html"><i class="material-icons">store</i><span class="icon-text"></span>local stores</a></span>
+       </a><br>
+       <a href="news.html"><i class="material-icons">newspaper</i><span class="icon-text"></span>news</span></a><br>
+       <a href="explore.html"><i class="material-icons">explore</i><span class="icon-text"></span>explore<span></a>
+       <br>
+       <a href="chat.html"><i class="material-icons">forum</i><span class="icon-text"></span>chat<span></a>
+     </div>
+     <div id="main">
+     </div>
+     
+     
+
+    <div class="search-box" style="position:fixed; top:0; z-index:100;">
+        <input type="text" placeholder="Type to search..">
+        <div class="search-icon">
+        <i class="fas fa-search" ></i>
+      </div>
+      <div class="cancel-icon">
+        <i class="fas fa-times"></i>
+      </div>
+      <div class="search-data">
+      </div>
+    </div>
+    <script>
+      const searchBox = document.querySelector(".search-box");
+      const searchBtn = document.querySelector(".search-icon");
+      const cancelBtn = document.querySelector(".cancel-icon");
+      const searchInput = document.querySelector("input");
+      const searchData = document.querySelector(".search-data");
+      searchBtn.onclick =()=>{
+        searchBox.classList.add("active");
+        searchBtn.classList.add("active");
+        searchInput.classList.add("active");
+        cancelBtn.classList.add("active");
+        
+        var allItems = document.getElementById("product-card");
+        /*if(allItems.length > 0 && allItems != null){
+          allItems.remove();
+        }
+        else{
+          console.log('Clean');
+        }
+        */
+
+        
+        
+        searchInput.focus();
+        if(searchInput.value != ""){
+          var values = searchInput.value;
+          search();
+          searchData.classList.remove("active");
+          searchData.innerHTML = "<p style='color: #fff; background: #2c2c2c;'>All the available products matching " + "<span style='font-weight: 700;'>" + values + "</span> are here</p>";
+          
+           async function search(){
+     
+            const prodRef = db.collection(UserSpot);
+            const snapshot = await prodRef.where('ProductName', '==', values).get();
+            if (snapshot.empty) {
+              console.log('No matching documents.');
+              return;
+            }  
+            snapshot.forEach(doc => {
+            console.log(doc.id, '=>', doc.data());
+            let pr = document.querySelector(`[data-id='${doc.id}']`);
+              renderSearch(doc);
+            
+            });
+            }
+            }else{
+              searchData.textContent = "";
+            }
+          }
+      cancelBtn.onclick =()=>{
+        searchBox.classList.remove("active");
+        searchBtn.classList.remove("active");
+        searchInput.classList.remove("active");
+        cancelBtn.classList.remove("active");
+        searchData.classList.toggle("active");
+        searchInput.value = "";
+        
+      }
+    </script>
+     <div class="storeCat">
+       
+     </div>
+     <div class="table-search"></div>
+      <div class="table-products" id="card">
+        
+        <tr>
+
+        </tr>
+       <button id="checkOut">
+        <svg style="width:24px;height:24px" viewBox="0 0 24 24" id="cart">
+          <path fill="#000000" d="M17,18A2,2 0 0,1 19,20A2,2 0 0,1 17,22C15.89,22 15,21.1 15,20C15,18.89 15.89,18 17,18M1,2H4.27L5.21,4H20A1,1 0 0,1 21,5C21,5.17 20.95,5.34 20.88,5.5L17.3,11.97C16.96,12.58 16.3,13 15.55,13H8.1L7.2,14.63L7.17,14.75A0.25,0.25 0 0,0 7.42,15H19V17H7C5.89,17 5,16.1 5,15C5,14.65 5.09,14.32 5.24,14.04L6.6,11.59L3,4H1V2M7,18A2,2 0 0,1 9,20A2,2 0 0,1 7,22C5.89,22 5,21.1 5,20C5,18.89 5.89,18 7,18M16,11L18.78,6H6.14L8.5,11H16Z" />
+        </svg>
+        <span>Checkout</span>
+        <svg id="check" style="width:24px;height:24px" viewBox="0 0 24 24">
+          <path stroke-width="2" fill="none" stroke="#ffffff" d="M 3,12 l 6,6 l 12, -12" />
+        </svg>
+      </button>
+      </div>
+    <script>
+      const UserSpot = localStorage.UserSpot;
+    </script>
+  
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+
+  <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-app.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+
+      https://firebase.google.com/docs/web/setup#available-libraries -->
+
+  <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-firestore.js"></script>
+   <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-storage.js"></script>
+  <script>
+
+    // Your web app's Firebase configuration
+
+    var firebaseConfig = {
+
+    apiKey: "AIzaSyDPbCB9o3c44_KqEcTL8PrPXvOioNI9Skw",
+
+    authDomain: "netizen-70f7b.firebaseapp.com",
+
+    databaseURL: "https://netizen-70f7b-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "netizen-70f7b",
+    storageBucket: "netizen-70f7b.appspot.com",
+    messagingSenderId: "900442479711",
+    appId: "1:900442479711:web:8fe818cd16e8feeaff8fea",
+     measurementId: "G-G8XQQBBY8F"
+    };
+
+    // Initialize Firebase
+
+    firebase.initializeApp(firebaseConfig);
+
+    const db = firebase.firestore();
+  </script>
+  <script>
+  const tableUsers = document.querySelector('.table-products');
+  const tableSearch = document.querySelector('.table-search');
+  
+  console.log("Reading");
+  
+  
+// Create element and render products
+
+const renderUser = doc => {
+  
+  
+
+  const tr = `
+  
+    <div id="product-card" class="buy product-card" id='${doc.id}'>
+      <div class="main-images">
+        <img  class="ProdImg" src="${doc.data().Imagesrc}" alt="product">
+      </div>
+      <div class="product-details">
+        <span id="product_name_en">${doc.data().ProductName}</span>
+        <br>
+        <span id="product_name_lang">${doc.data().ProductNameLang}</span>
+        <br>
+        <p id="brand_name">${doc.data().BrandName}</p>
+        <br>
+        <p>${doc.data().BrandNameLang}</p>
+        
+      </div>
+      <div class="color-price">
+        <div class="price">
+          <span id="price_num">${doc.data().Price}</span>
+          <span class="store_name"></span>
+        </div>
+      </div>
+      <div class="button">
+        <div class="button-layer"></div>
+        <button class="AddToCart" id="${doc.data().ProductName} <br> ${doc.data().BrandName} <br>  ${doc.data().Price} <br> +${doc.data().StoreId}" onclick="getProd(this.id);">Add To Cart</button>
+      </div>
+    </div>
+    <br>
+    <br>
+
+  `;
+  
+  
+  
+  
+  tableUsers.insertAdjacentHTML('beforeend', tr);
+   
+      
+    
+}
+
+const renderSearch = doc => {
+  
+  
+
+  const pr = `
+  
+    <div id="product-card" class="buy search-card" id='${doc.id}'>
+      <div class="main-images">
+        <img  class="ProdImg" src="${doc.data().Imagesrc}" alt="product">
+      </div>
+      <div class="product-details">
+        <span id="product_name_en">${doc.data().ProductName}</span>
+        <br>
+        <span id="product_name_lang">${doc.data().ProductNameLang}</span>
+        <br>
+        <p id="brand_name">${doc.data().BrandName}</p>
+        <br>
+        <p>${doc.data().BrandNameLang}</p>
+        
+      </div>
+      <div class="color-price">
+        <div class="price">
+          <span id="price_num">${doc.data().Price}</span>
+          <span class="store_name"></span>
+        </div>
+      </div>
+      <div class="button">
+        <div class="button-layer"></div>
+        <button class="AddToCart" id="${doc.data().ProductName} <br> ${doc.data().BrandName} <br> ${doc.data().Price} <br> +${doc.data().StoreId}" onclick="getProd(this.id);">Add To Cart</button>
+      </div>
+    </div>
+    <br>
+    <br>
+
+  `;
+  
+  
+  tableSearch.insertAdjacentHTML('afterbegin', pr);
+   
+    
+}
+
+
+
+  console.log('Geohash '+ localStorage.geohash);
+   let localSpot = localStorage.geohash;
+   let userSpot = localSpot.substring(7, localSpot.Length-4);
+   console.log('localSpot ' + userSpot);
+   localSpot = localStorage.geohash.substring(0, localSpot.length - 5);
+   localStorage.setItem("UserSpot", userSpot);
+   console.log('UserSpot ' +userSpot);
+
+function getProd(clicked_id){
+    alert(clicked_id +' Is Prod Id | Heres the User '+localStorage.userId );
+    
+    let totalId = clicked_id;
+    let storeId = totalId.substring(totalId.indexOf('+') + 1);
+    //setTimeout('', 5000);
+    console.log('Store Id ' + storeId); //  only store
+
+
+    console.log(db.collection('users').doc(localStorage.userId).get());
+    
+    
+    /*
+    db.collection("users").get().then((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+        console.log(`${doc.id} => ${doc.data()}`);
+    });
+    
+    });
+    */
+    /*
+    .on('value', (snapshot) => {
+  console.log(snapshot.val());
+}, (errorObject) => {
+  console.log('The read failed: ' + errorObject.name);
+}); 
+    */
+
+
+
+    db.collection("users").doc(localStorage.userId).collection('cart').add({
+      Product: clicked_id,
+    });
+    db.collection("stores").doc(localStorage.UserSpot).collection('Groceries').doc(storeId).collection("Orders").add({
+        Product: clicked_id,
+        
+    });
+
+}
+
+
+ 
+db.collection(UserSpot).onSnapshot(snapshot => {
+
+  snapshot.docChanges().forEach(change => {
+
+    if (change.type === 'added') {
+
+      renderUser(change.doc);
+
+    }
+
+    if (change.type === 'removed') {
+
+      let tr = document.querySelector(`[data-id='${change.doc.id}']`);
+
+      let tbody = tr.parentElement;
+
+      tableUsers.removeChild(tbody);
+
+    }
+
+    if (change.type === 'modified') {
+
+      let tr = document.querySelector(`[data-id='${change.doc.id}']`);
+
+      let tbody = tr.parentElement;
+
+      tableUsers.removeChild(tbody);
+
+      renderUser(change.doc);
+
+    }
+
+  })
+
+});
+
+/*
+db.collection(UserSpot).onSnapshot(snapshot => {
+
+  snapshot.docChanges().forEach(change => {
+
+    if (change.type === 'added') {
+
+      renderSearch(change.doc);
+
+    }
+
+    if (change.type === 'removed') {
+
+      let tr = document.querySelector(`[data-id='${change.doc.id}']`);
+
+      let tbody = tr.parentElement;
+
+      tableUsers.removeChild(tbody);
+
+    }
+
+    if (change.type === 'modified') {
+
+      let tr = document.querySelector(`[data-id='${change.doc.id}']`);
+
+      let tbody = tr.parentElement;
+
+      tableUsers.removeChild(tbody);
+
+      renderSearch(change.doc);
+
+    }
+
+  })
+
+});
+*/
+
+
+    </script>
+    <!--<script src="db.js"></script>-->
+    <script>
+     
+     const card = document.querySelector('.buy');
+     const btn = document.querySelector('#checkOut');
+          
+
+    btn.addEventListener('click', () => {
+    document.documentElement.classList.toggle('checked-out');
+    setTimeout( function() {
+      window.location.replace('checkout.html');
+     }, 2000);
+     });
+     
+    </script>
+    
+</body>
+
+</html>
