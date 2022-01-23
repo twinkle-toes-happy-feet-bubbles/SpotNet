@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>User Details | SpotNet</title>
+
+    
+
+<link rel="stylesheet" href="users.css">
+
+</head>
+
+<body>
+
+  <h2>
+
+    Please turn Location ON
+
+  </h2>
+
+  <div id="logbox">
+
+    <div id="log"></div>
+
+</div>
+
+<div class="body">
+
+  </div>
+
+  <div class="wrapper">
+
+    <div class="container">
+
+      <div class="form-inner">
+
+        <form class="login">
+
+          <div class="feild">
+
+            <input id="userName" placeholder="Name" required></input>
+
+          </div>
+
+          <br>
+
+          <div class="feild">
+
+            <textarea id="userAddress" placeholder="Address" required></textarea>
+
+          </div>
+
+          <br>
+
+          <div class="feild">
+
+            <input type="number" id="userNumber" placeholder="Mobile Number" required></input>
+
+          </div>
+
+        </form>
+
+       </div>
+
+    </div>
+
+    <div class="field btn">
+
+      <br>
+
+      <button onclick="LocateUser()">Get Location</button>
+
+    </div>
+
+    <br>
+
+    <br>
+
+    <div class="field btn">
+
+      <button onclick="Userdb()">Submit</button>
+
+    </div>
+
+  </div>
+
+    <div class="field btn">
+
+      <button id="storeButton" onclick="storeToDb()">
+
+        Bring your store online?
+
+      </button>
+
+    </div>
+
+  <!-- &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&-->
+
+  <!--e Firebase JS SDK is always required and must be listed first -->
+
+  <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-app.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+
+      https://firebase.google.com/docs/web/setup#available-libraries -->
+
+  <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-firestore.js"></script>
+
+   <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-storage.js"></script>
+
+  <script>
+
+    // Your web app's Firebase configuration
+
+    var firebaseConfig = {
+
+    apiKey: "AIzaSyDPbCB9o3c44_KqEcTL8PrPXvOioNI9Skw",
+
+    authDomain: "netizen-70f7b.firebaseapp.com",
+
+    databaseURL: "https://netizen-70f7b-default-rtdb.asia-southeast1.firebasedatabase.app",
+
+    projectId: "netizen-70f7b",
+
+    storageBucket: "netizen-70f7b.appspot.com",
+
+    messagingSenderId: "900442479711",
+
+    appId: "1:900442479711:web:8fe818cd16e8feeaff8fea",
+
+     measurementId: "G-G8XQQBBY8F"
+
+    };
+
+    // Initialize Firebase
+
+    firebase.initializeApp(firebaseConfig);
+
+    const db = firebase.firestore();
+
+  </script>
+
+  <!-- &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& -->
+
+  
+
+  
+
+  
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+
+      https://firebase.google.com/docs/web/setup#available-libraries -->
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+
+      https://firebase.google.com/docs/web/setup#available-libraries -->
+
+  <style>
+
+    .field input{
+
+    height: 100%;
+
+    width: 100%;
+
+    outline: none;
+
+    padding-left: 15px;
+
+    border-radius: 5px;
+
+    border: 1px solid lightgrey;
+
+    border-bottom-width: 2px;
+
+    font-size: 17px;
+
+    transition: all 0.3s ease;
+
+    }
+
+    button{
+
+      padding: 6px;
+
+      font-size: 18px;
+
+      text-align: center;
+
+      align-self: center;
+
+      font-weight: 900;
+
+      background: #12FF30;
+
+  height: 50px;
+
+  width: 100%;
+
+  border-radius: 5px;
+
+  position: relative;
+
+  overflow: hidden;
+
+  height: 50px;
+
+  width: 100%;
+
+  border-radius: 5px;
+
+  position: relative;
+
+  overflow: hidden;
+
+  height: 100%;
+
+  width: 300%;
+
+  background: black;
+
+  border-radius: 5px;
+
+  transition: all 0.4s ease;;
+
+}
+
+button:hover{
+
+  left: 0;
+
+}
+
+button{
+
+  height: 100%;
+
+  width: 100%;
+
+  z-index: 1;
+
+  position: relative;
+
+  background: deepskyblue;
+
+  border: none;
+
+  color: #fff;
+
+  padding-left: 0;
+
+  border-radius: 5px;
+
+  font-size: 20px;
+
+  font-weight: 500;
+
+  cursor: pointer;
+
+  padding: 3px;
+
+}
+
+button:hover {
+
+    background-color:rgba(255,204,0,0.8);
+
+}
+
+input{
+
+  height: 100%;
+
+  width: 100%;
+
+  outline: none;
+
+  padding-left: 15px;
+
+  border-radius: 5px;
+
+  border: 1px solid lightgrey;
+
+  border-bottom-width: 2px;
+
+  font-size: 17px;
+
+  transition: all 0.3s ease;
+
+}
+
+  </style>
+
+  <script src="details.js"></script>
+
+  <script>
+
+    function storeToDb(){
+
+      window.location.replace('storespot.html');
+
+    }
+
+    var usrAddress = document.getElementById("userAddress");
+
+    var usrName = document.getElementById("userName");
+
+    var usrNumber = document.getElementById("userNumber");
+
+    function  Userdb() {
+
+      try {
+
+        const userDetails = db.collection('users').doc(localStorage.userId).set({
+
+        UserHash: localStorage.geohash,
+
+        UserId: localStorage.userId,
+
+        Name: usrName.value,
+
+        PhoneNo: usrNumber.value,
+
+        Address: usrAddress.value,
+
+        });
+
+        window.location.replace('testfile.html');
+
+        localStorage.setItem("AuthState", localStorage.userId);
+
+      } catch (error) {
+
+      this.errorMessage = 'Error - ' + error.message
+
+      }
+
+   console.log(usrName.value);
+
+   console.log(usrNumber.value);
+
+};
+
+  </script>
+
+</body>
+
+</html>
